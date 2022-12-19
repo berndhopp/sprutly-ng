@@ -1,0 +1,15 @@
+<input
+  type="text"
+  style="z-index: 10000;position: absolute;right: 1em;top: 1em"
+  matInput
+  [formControl]="placeControl"
+  [matAutocomplete]="auto"
+>
+<mat-autocomplete autoActiveFirstOption (optionSelected)="optionSelected($event)" #auto="matAutocomplete">
+  <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+  <ng-container *ngIf="!isLoading">
+    <mat-option *ngFor="let match of nominatimMatches" [value]="match">
+      <span><b>{{match | featureName}}</b></span>
+    </mat-option>
+  </ng-container>
+</mat-autocomplete>
