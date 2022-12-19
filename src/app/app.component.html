@@ -1,28 +1,19 @@
-<div leaflet
-     style="height: 400px;width: 100vw"
-     leafletDraw
-     [leafletOptions]="options"
-     [leafletDrawOptions]="drawOptions"
-     (leafletDrawCreated)="onDrawCreated($event)">
-  <div [leafletLayer]="drawnItems">
-  </div>
-    <input type="text"
-           style="
-             z-index: 10000;
-             position: absolute;
-             right: 1em;
-             top: 1em
-           "
-           placeholder="pick place"
-           matInput
-           [formControl]="placeControl"
-           [matAutocomplete]="auto">
-    <mat-autocomplete autoActiveFirstOption (optionSelected)="optionSelected($event)" #auto="matAutocomplete">
-      <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
-      <ng-container *ngIf="!isLoading">
-        <mat-option *ngFor="let match of nominatimMatches" [value]="match">
-          <span><b>{{match | featureName}}</b></span>
-        </mat-option>
-      </ng-container>
-    </mat-autocomplete>
+<div
+    style="height: 40vh;width: 100vw"
+    leaflet
+    leafletDraw
+    [leafletOptions]="options"
+    [leafletLayer]="drawnItems"
+    (leafletMapReady)="onMapReady($event)"
+    [leafletDrawOptions]="drawOptions"
+    (leafletDrawStart)="clearDraw()"
+
+    (leafletDrawCreated)="onDrawCreated($event)"
+    (leafletClick)="mapClick()"
+>
+  <leaflet-locate-control
+    [map]="map"
+    [options]="locateOptions"
+    (location$)="onNewLocation($event)"
+  ></leaflet-locate-control>
 </div>

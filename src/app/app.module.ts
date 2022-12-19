@@ -11,11 +11,15 @@ import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {FeatureNamePipe} from "../pipes/feature-name.pipe";
+import {NgxLeafletFullscreenModule} from "@runette/ngx-leaflet-fullscreen";
+import {NgxLeafletLocateModule} from "@runette/ngx-leaflet-locate";
+import { AppNominatimSearchBoxComponent } from './components/app-nominatim-search-box/app-nominatim-search-box.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FeatureNamePipe
+    FeatureNamePipe,
+    AppNominatimSearchBoxComponent
   ],
     imports: [
         BrowserModule,
@@ -26,7 +30,9 @@ import {FeatureNamePipe} from "../pipes/feature-name.pipe";
         MatAutocompleteModule,
         MatInputModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        NgxLeafletFullscreenModule,
+        NgxLeafletLocateModule
     ],
   providers: [],
   bootstrap: [AppComponent]
