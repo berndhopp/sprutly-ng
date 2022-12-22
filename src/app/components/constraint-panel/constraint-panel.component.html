@@ -1,0 +1,19 @@
+<mat-expansion-panel class="constraint-panel" hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon>filter_alt</mat-icon>
+    </mat-panel-title>
+    <mat-panel-description>
+      lalala
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div style="display: flex;flex-direction: row;flex-wrap: wrap">
+    <div style="display: flex;flex-direction: column">
+      <h4 style="font-style: italic" translate="propertyType"></h4>
+      <div style="grid-column: 1 / span 2;gap:1em; display: flex;flex-direction: row">
+        <mat-checkbox [(ngModel)]="house">{{'House' | translate}}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="apartment">{{'Apartment' | translate}}</mat-checkbox>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>

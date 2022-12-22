@@ -1,19 +1,18 @@
-<div
-    style="height: 40vh;width: 100vw"
-    leaflet
-    leafletDraw
-    [leafletOptions]="options"
-    [leafletLayer]="drawnItems"
-    (leafletMapReady)="onMapReady($event)"
-    [leafletDrawOptions]="drawOptions"
-    (leafletDrawStart)="clearDraw()"
-
-    (leafletDrawCreated)="onDrawCreated($event)"
-    (leafletClick)="mapClick()"
->
-  <leaflet-locate-control
-    [map]="map"
-    [options]="locateOptions"
-    (location$)="onNewLocation($event)"
-  ></leaflet-locate-control>
-</div>
+<mat-toolbar style="justify-content: space-between">
+  <div style="display: flex;flex-direction: row; align-items: center">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>My App</span>
+  </div>
+  <div style="display: flex;flex-direction: row">
+  <button mat-icon-button class="example-icon favorite-icon"
+          aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>
