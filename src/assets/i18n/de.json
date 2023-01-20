@@ -1,4 +1,7 @@
 {
+  "actions": {
+    "search": "Suchen"
+  },
   "searchFor": "Suche nach",
   "House": "Haus",
   "Apartment": "Wohnung",

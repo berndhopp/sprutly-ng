@@ -2,7 +2,7 @@ import 'leaflet-control-geocoder'
 
 export function addGeocoder(map, drawnItems) {
   L.Control.geocoder({
-    position: 'topleft',
+    position: 'topright',
     defaultMarkGeoCode: true,
     geocoder: L.Control.Geocoder.nominatim({
      geocodingQueryParams: {

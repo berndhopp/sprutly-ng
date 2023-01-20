@@ -8,12 +8,25 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
   <div style="display: flex;flex-direction: row;flex-wrap: wrap">
-    <div style="display: flex;flex-direction: column">
-      <h4 style="font-style: italic" translate="propertyType"></h4>
-      <div style="grid-column: 1 / span 2;gap:1em; display: flex;flex-direction: row">
-        <mat-checkbox [(ngModel)]="house">{{'House' | translate}}</mat-checkbox>
-        <mat-checkbox [(ngModel)]="apartment">{{'Apartment' | translate}}</mat-checkbox>
+    <div style="display: flex;flex-direction: column;width: 100%">
+      <h4 style="font-style: italic;margin:0" translate="propertyType"></h4>
+      <div style="gap:1em;width:100%">
+        <mat-checkbox
+          [(ngModel)]="constraintHolder.searchHouse"
+          translate="House"
+        ></mat-checkbox>
+        <mat-checkbox
+          [(ngModel)]="constraintHolder.searchApartment"
+          translate="Apartment"
+        ></mat-checkbox>
       </div>
+      <button
+        mat-button
+        style="align-self: flex-end"
+        (click)="searchService.search()"
+        translate="actions.search"
+      >
+      </button>
     </div>
   </div>
 </mat-expansion-panel>

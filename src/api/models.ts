@@ -1,9 +1,2 @@
-export { BaseOffer } from './models/base-offer';
-export { CircleGeoConstraint } from './models/circle-geo-constraint';
-export { GeoConstraint } from './models/geo-constraint';
-export { GeoJsonConstraint } from './models/geo-json-constraint';
-export { OfferSearchRequest } from './models/offer-search-request';
 export { OfferStub } from './models/offer-stub';
-export { PriceAndAreaStatsRequest } from './models/price-and-area-stats-request';
-export { PriceAndAreaStats } from './models/price-and-area-stats';
 export { Offer } from './models/offer';

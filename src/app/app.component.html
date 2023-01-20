@@ -1,18 +1,28 @@
-<mat-toolbar style="justify-content: space-between">
-  <div style="display: flex;flex-direction: row; align-items: center">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar>
+    <button mat-icon-button (click)="sideNav.toggle()" class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
     <span>My App</span>
-  </div>
-  <div style="display: flex;flex-direction: row">
-  <button mat-icon-button class="example-icon favorite-icon"
-          aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
-  </div>
-</mat-toolbar>
-<router-outlet></router-outlet>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #sideNav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <button mat-button>a long-ass fucking time ago in a town called kick-a-poo</button>
+        <a href="http://www.google.com">click</a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="main-content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

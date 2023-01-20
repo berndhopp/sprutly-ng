@@ -4,7 +4,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { OfferEndpointService } from './services/offer-endpoint.service';
+import { OfferControllerService } from './services/offer-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -14,7 +14,7 @@ import { OfferEndpointService } from './services/offer-endpoint.service';
   exports: [],
   declarations: [],
   providers: [
-    OfferEndpointService,
+    OfferControllerService,
     ApiConfiguration
   ],
 })

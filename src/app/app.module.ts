@@ -26,6 +26,8 @@ import {ApiModule} from "../api/api.module";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatListModule} from "@angular/material/list";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -66,11 +68,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatButtonModule,
     MatExpansionModule,
     ApiModule.forRoot({
-        rootUrl: "/api"
+        rootUrl: ""
       }
     ),
     MatCheckboxModule,
     FormsModule,
+    MatSidenavModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

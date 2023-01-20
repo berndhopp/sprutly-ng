@@ -1,1 +1,1 @@
-export { OfferEndpointService } from './services/offer-endpoint.service';
+export { OfferControllerService } from './services/offer-controller.service';

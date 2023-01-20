@@ -1,5 +1,5 @@
 /// <reference types='@runette/leaflet-fullscreen' />
-import { Component, ViewChild } from '@angular/core';
+import {Component} from '@angular/core';
 import {
   Control,
   featureGroup,
@@ -8,14 +8,8 @@ import {
   MapOptions,
   tileLayer,
   FullscreenOptions,
-  Map as LMap, LocationEvent, DomUtil, geoJson
+  Map as LMap
 } from "leaflet";
-import {FormControl} from "@angular/forms";
-import {debounceTime, distinctUntilChanged, filter, finalize, map, switchMap, tap} from "rxjs";
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
-import {LeafletDrawDirective} from "@asymmetrik/ngx-leaflet-draw";
-import { Feature, Geometry, GeometryCollection, Properties } from '@turf/turf';
 import {addGeocoder} from './add-geocoder'
 
 @Component({
@@ -24,7 +18,7 @@ import {addGeocoder} from './add-geocoder'
   styleUrls: ['./geo-map.component.css']
 })
 export class GeoMapComponent {
-  public locateOptions:  Control.LocateOptions = {
+  public locateOptions: Control.LocateOptions = {
     drawCircle: false,
     flyTo: false,
     keepCurrentZoomLevel: false,
@@ -32,6 +26,7 @@ export class GeoMapComponent {
       enableHighAccuracy: true,
     },
     icon: 'material-icons md-18 target icon',
+    position: 'topright'
   };
 
   drawnItems: FeatureGroup = featureGroup();
@@ -40,9 +35,6 @@ export class GeoMapComponent {
 
   onMapReady(map: LMap) {
     this.map = map
-
-    const me = this
-
     addGeocoder(map, this.drawnItems)
   }
 
@@ -66,17 +58,20 @@ export class GeoMapComponent {
       rectangle: false,
       polyline: false,
       circlemarker: false,
-
-    }
+    },
+    position: 'topright'
   };
 
   fullScreenOptions: FullscreenOptions = {
-    position: 'topleft'
+    position: 'topright'
   }
 
   options: MapOptions = {
     layers: [
-      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
+      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '...'
+      })
     ],
     zoom: 5,
     center: latLng(52, 13)

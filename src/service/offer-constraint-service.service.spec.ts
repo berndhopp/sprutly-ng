@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { OfferConstraintService } from './offer-constraint.service';
+import { ConstraintHolderService } from './constraint-holder.service';
 
 describe('OfferConstraintServiceService', () => {
-  let service: OfferConstraintService;
+  let service: ConstraintHolderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(OfferConstraintService);
+    service = TestBed.inject(ConstraintHolderService);
   });
 
   it('should be created', () => {
