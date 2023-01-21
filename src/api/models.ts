@@ -1,2 +1,2 @@
-export { OfferStub } from './models/offer-stub';
-export { Offer } from './models/offer';
+export { OfferDto } from './models/offer-dto';
+export { OfferConstraintDto } from './models/offer-constraint-dto';

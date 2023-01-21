@@ -9,8 +9,8 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { Offer } from '../models/offer';
-import { OfferStub } from '../models/offer-stub';
+import { OfferConstraintDto } from '../models/offer-constraint-dto';
+import { OfferDto } from '../models/offer-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -24,57 +24,25 @@ export class OfferControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation searchOffers
+   * Path part for operation createOffer
    */
-  static readonly SearchOffersPath = '/api/offers';
+  static readonly CreateOfferPath = '/api/offers';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `searchOffers()` instead.
+   * To access only the response body, use `createOffer()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
-  searchOffers$Response(params: {
-    geoJson: string;
-    priceMin?: number;
-    priceMax?: number;
-    roomsMin?: number;
-    roomsMax?: number;
-    areaMin?: number;
-    areaMax?: number;
-    searchHouse?: boolean;
-    searchApartment?: boolean;
-    offerCategory: 'Buy' | 'Rent';
-    distanceToCafe?: number;
-    distanceToForest?: number;
-    distanceToHospital?: number;
-    distanceToKindergarten?: number;
-    distanceToLake?: number;
-    distanceToSupermarket?: number;
-    distanceToRestaurant?: number;
+  createOffer$Response(params: {
     context?: HttpContext
+    body: OfferDto
   }
-): Observable<StrictHttpResponse<Array<OfferStub>>> {
+): Observable<StrictHttpResponse<OfferDto>> {
 
-    const rb = new RequestBuilder(this.rootUrl, OfferControllerService.SearchOffersPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, OfferControllerService.CreateOfferPath, 'put');
     if (params) {
-      rb.query('geoJson', params.geoJson, {});
-      rb.query('priceMin', params.priceMin, {});
-      rb.query('priceMax', params.priceMax, {});
-      rb.query('roomsMin', params.roomsMin, {});
-      rb.query('roomsMax', params.roomsMax, {});
-      rb.query('areaMin', params.areaMin, {});
-      rb.query('areaMax', params.areaMax, {});
-      rb.query('searchHouse', params.searchHouse, {});
-      rb.query('searchApartment', params.searchApartment, {});
-      rb.query('offerCategory', params.offerCategory, {});
-      rb.query('distanceToCafe', params.distanceToCafe, {});
-      rb.query('distanceToForest', params.distanceToForest, {});
-      rb.query('distanceToHospital', params.distanceToHospital, {});
-      rb.query('distanceToKindergarten', params.distanceToKindergarten, {});
-      rb.query('distanceToLake', params.distanceToLake, {});
-      rb.query('distanceToSupermarket', params.distanceToSupermarket, {});
-      rb.query('distanceToRestaurant', params.distanceToRestaurant, {});
+      rb.body(params.body, 'application/json');
     }
 
     return this.http.request(rb.build({
@@ -84,7 +52,58 @@ export class OfferControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<OfferStub>>;
+        return r as StrictHttpResponse<OfferDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `createOffer$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  createOffer(params: {
+    context?: HttpContext
+    body: OfferDto
+  }
+): Observable<OfferDto> {
+
+    return this.createOffer$Response(params).pipe(
+      map((r: StrictHttpResponse<OfferDto>) => r.body as OfferDto)
+    );
+  }
+
+  /**
+   * Path part for operation searchOffers
+   */
+  static readonly SearchOffersPath = '/api/offers/search';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `searchOffers()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  searchOffers$Response(params: {
+    context?: HttpContext
+    body: OfferConstraintDto
+  }
+): Observable<StrictHttpResponse<Array<OfferDto>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, OfferControllerService.SearchOffersPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<OfferDto>>;
       })
     );
   }
@@ -93,32 +112,16 @@ export class OfferControllerService extends BaseService {
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `searchOffers$Response()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   searchOffers(params: {
-    geoJson: string;
-    priceMin?: number;
-    priceMax?: number;
-    roomsMin?: number;
-    roomsMax?: number;
-    areaMin?: number;
-    areaMax?: number;
-    searchHouse?: boolean;
-    searchApartment?: boolean;
-    offerCategory: 'Buy' | 'Rent';
-    distanceToCafe?: number;
-    distanceToForest?: number;
-    distanceToHospital?: number;
-    distanceToKindergarten?: number;
-    distanceToLake?: number;
-    distanceToSupermarket?: number;
-    distanceToRestaurant?: number;
     context?: HttpContext
+    body: OfferConstraintDto
   }
-): Observable<Array<OfferStub>> {
+): Observable<Array<OfferDto>> {
 
     return this.searchOffers$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<OfferStub>>) => r.body as Array<OfferStub>)
+      map((r: StrictHttpResponse<Array<OfferDto>>) => r.body as Array<OfferDto>)
     );
   }
 
@@ -137,7 +140,7 @@ export class OfferControllerService extends BaseService {
     offerId: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<Offer>> {
+): Observable<StrictHttpResponse<OfferDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, OfferControllerService.GetOfferPath, 'get');
     if (params) {
@@ -151,7 +154,7 @@ export class OfferControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Offer>;
+        return r as StrictHttpResponse<OfferDto>;
       })
     );
   }
@@ -166,10 +169,61 @@ export class OfferControllerService extends BaseService {
     offerId: string;
     context?: HttpContext
   }
-): Observable<Offer> {
+): Observable<OfferDto> {
 
     return this.getOffer$Response(params).pipe(
-      map((r: StrictHttpResponse<Offer>) => r.body as Offer)
+      map((r: StrictHttpResponse<OfferDto>) => r.body as OfferDto)
+    );
+  }
+
+  /**
+   * Path part for operation searches
+   */
+  static readonly SearchesPath = '/api/offers/searches/';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `searches()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  searches$Response(params: {
+    olderThan: string;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<OfferConstraintDto>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, OfferControllerService.SearchesPath, 'get');
+    if (params) {
+      rb.query('olderThan', params.olderThan, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<OfferConstraintDto>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `searches$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  searches(params: {
+    olderThan: string;
+    context?: HttpContext
+  }
+): Observable<Array<OfferConstraintDto>> {
+
+    return this.searches$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<OfferConstraintDto>>) => r.body as Array<OfferConstraintDto>)
     );
   }
 
